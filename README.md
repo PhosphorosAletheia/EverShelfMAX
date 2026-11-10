@@ -1,115 +1,74 @@
-# 🏠 EverShelf
+# 🏠 EverShelfMAX
 
-> Self-hosted pantry manager — inventory, barcode scan, AI recipes, less waste.
+> Independent fork of EverShelf, maintained separately from the original upstream project.
+
+This repository is a custom fork of the original EverShelf project and is intentionally disconnected from the upstream maintenance track at `dadaloop82/EverShelf`.
+
+It may include different defaults, custom functionality, deployment choices, and local changes that are not present in the upstream repository. Use it as a separate self-hosted fork, not as an official upstream release or mirror.
 
 <div align="center">
 
-**[Website](https://evershelf.site/)** · **[Demo](https://evershelf.site/demo)** · **[Wiki](https://github.com/dadaloop82/EverShelf/wiki)** · **[Changelog](CHANGELOG.md)**
+**[Original project](https://github.com/dadaloop82/EverShelf)** · **[License](LICENSE)** · **[Documentation](docs/)**
 
-[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![PHP 8+](https://img.shields.io/badge/PHP-8.0+-blue.svg)](https://www.php.net/) [![Version](https://img.shields.io/badge/version-1.7.94-brightgreen.svg)](CHANGELOG.md) [![CI](https://github.com/dadaloop82/EverShelf/actions/workflows/ci.yml/badge.svg)](https://github.com/dadaloop82/EverShelf/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![PHP 8+](https://img.shields.io/badge/PHP-8.0+-blue.svg)](https://www.php.net/)
 
 </div>
+
+## Why this fork exists
+
+EverShelfMAX is a separate fork built for a specific self-hosted setup. It diverges from the upstream repository by design:
+
+- independent maintenance and issue tracking
+- custom local modifications and deployment assumptions
+- no guarantee of compatibility with upstream defaults
+- intentionally not tied to upstream release flow or support channels
+
+If you are looking for the upstream project, use the original repository linked above.
+
+## Features
+
+- inventory tracking with barcode scanning and expiry management
+- AI-assisted identification, OCR, chat, and recipe generation
+- smart shopping list and anti-waste planning
+- cooking workflow with timers, voice output, and directions
+- PWA-style mobile/web experience for local self-hosting
+- optional integrations for health, kiosk, and automation workflows
+
+## Quick start
 
 ```bash
-git clone https://github.com/dadaloop82/EverShelf.git && cd EverShelf
-cp .env.example .env && docker compose up -d    # → http://localhost:8080
+git clone https://github.com/PhosphorosAletheia/EverShelfMAX.git
+cd EverShelfMAX
+cp .env.example .env
+docker compose up -d
 ```
 
-<details>
-<summary><b>✨ Features</b></summary>
+Then open:
 
-| | |
-|---|---|
-| **Inventory** | Scan, locations, expiry, opened packs, favourites, CSV import/export |
-| **AI** | Gemini · OpenAI · Llama — identify, OCR expiry, recipes, chat |
-| **Shopping** | Smart list, anti-waste qty, optional [Bring!](https://www.getbring.com/) |
-| **Cooking** | Steps, TTS, timers, zero-waste tips |
-| **PWA** | Offline queue, installable, multi-device |
+- http://localhost:8080
 
-**Integrations:** [Home Assistant](https://github.com/dadaloop82/ha-evershelf) · [MCP](mcp-server/README.md) · [Health Bridge](evershelf-health-bridge/README.md) · [Kiosk](evershelf-kiosk/README.md)
+## Important note
 
-**Languages:** IT · EN · DE · FR · ES · ZH — details in [wiki → Features](https://github.com/dadaloop82/EverShelf/wiki/Features)
+This fork is not the official EverShelf repository and is not affiliated with the upstream project maintainers.
 
-</details>
+The upstream project continues at:
 
-<details>
-<summary><b>📰 What's new</b></summary>
+- https://github.com/dadaloop82/EverShelf
 
-**v1.7.94** — Hotfix: kiosk startup (i18n) + spesa scan resume after spend modal  **v1.7.93** — Spesa mode UX + inventory swipe Use/Discard + opened section  **v1.7.92** — i18n cleanup: all UI via translation keys (1853 × 6 langs)  
-**v1.7.91** — fix depleted crumbs (e.g. 19 g butter) stuck in Opened alerts  
-**v1.7.90** — `spend_stats` dashboard crash fix  
+Any feature, build, or configuration here may differ from upstream, and compatibility with that project is not guaranteed.
 
-→ [CHANGELOG.md](CHANGELOG.md)
+## Project structure
 
-</details>
+Typical repository layout:
 
-<details>
-<summary><b>⚙️ Install & config</b></summary>
+- `api/` — server-side logic and APIs
+- `assets/` — frontend assets
+- `data/` — local data and SQLite storage
+- `docs/` — architecture and supporting documentation
+- `evershelf-kiosk/` and `evershelf-health-bridge/` — companion integrations
 
-**Docker** (recommended): `docker compose pull && docker compose up -d`
+## License
 
-**Manual:** clone → `cp .env.example .env` → `chmod 755 data/` → point web server at repo root.
+MIT License — see [LICENSE](LICENSE).
 
-**Minimum `.env`:**
-
-```ini
-AI_ENABLED=true
-AI_PROVIDER=gemini
-GEMINI_API_KEY=your_key
-```
-
-**Optional:** `API_TOKEN`, `SHOPPING_MODE=bring`, cron every 5 min on `api/cron_smart_shopping.php`
-
-→ [Wiki: Installation](https://github.com/dadaloop82/EverShelf/wiki/Installation) · [Configuration](https://github.com/dadaloop82/EverShelf/wiki/Configuration)
-
-</details>
-
-<details>
-<summary><b>🔌 Integrations & API</b></summary>
-
-| | Link |
-|---|---|
-| Home Assistant | [ha-evershelf](https://github.com/dadaloop82/ha-evershelf) |
-| MCP agents | [mcp-server/README.md](mcp-server/README.md) |
-| Health / Fuel Mode | [evershelf-health-bridge/README.md](evershelf-health-bridge/README.md) |
-| Android kiosk + scale | [evershelf-kiosk/README.md](evershelf-kiosk/README.md) |
-| REST API | [Wiki → API](https://github.com/dadaloop82/EverShelf/wiki/API-Reference) |
-
-</details>
-
-<details>
-<summary><b>🏗️ Architecture & security</b></summary>
-
-`index.html` SPA · `api/index.php` · `assets/js/app.js` · SQLite in `data/`
-
-→ [ARCHITECTURE.md](docs/ARCHITECTURE.md) · [CORPORATE-UI.md](docs/CORPORATE-UI.md) · [SECURITY.md](SECURITY.md)
-
-</details>
-
-<details>
-<summary><b>🤝 Contributing</b></summary>
-
-[CONTRIBUTING.md](CONTRIBUTING.md) · [Issues](https://github.com/dadaloop82/EverShelf/issues) · [Discussions](https://github.com/dadaloop82/EverShelf/discussions) · [Roadmap](https://github.com/users/dadaloop82/projects/2)
-
-Add a language: copy `translations/en.json`, translate values, open a PR.
-
-</details>
-
-<details>
-<summary><b>📸 Demo</b></summary>
-
-<div align="center">
-
-![Demo](assets/img/demo.gif)
-
-[Live demo](https://evershelf.site/demo) — no install, full AI.
-
-</div>
-
-</details>
-
----
-
-MIT · [Stimpfl Daniel](https://evershelf.site/) · [@dadaloop82](https://github.com/dadaloop82)
-
-*Unrelated iOS app “EverShelf” by Joshumi Technologies — no affiliation.*
+This repository retains attribution to the upstream EverShelf project while remaining a separate and independently maintained fork.
